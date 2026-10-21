@@ -449,7 +449,7 @@ impl<E: Residual + Subset> State<E> {
             .into_iter()
             .zip(&vle.vapor().molefracs)
             .for_each(|(i, &y)| molefracs_vapor[i] = y);
-        let vapor = State::new(eos, temperature, vle.vapor().density, molefracs.clone())?;
+        let vapor = State::new(eos, temperature, vle.vapor().density, molefracs_vapor)?;
 
         // Determine the Henry's law coefficients and return only those of the Henry components
         let p = vle.vapor().pressure(Contributions::Total).into_reduced();
