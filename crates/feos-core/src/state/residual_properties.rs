@@ -475,7 +475,8 @@ impl<E: Residual> State<E> {
         let dln_phi_dnj = self.n_dln_phi_dnj();
         let n = self.eos.components() - 1;
         DMatrix::from_fn(n, n, |i, j| {
-            dln_phi_dnj[(i, j)] - dln_phi_dnj[(i, n)] + if i == j { 1.0 } else { 0.0 }
+            self.molefracs[i] * (dln_phi_dnj[(i, j)] - dln_phi_dnj[(i, n)])
+                + if i == j { 1.0 } else { 0.0 }
         })
     }
 }
